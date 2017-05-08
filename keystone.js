@@ -1,6 +1,7 @@
 // Simulate config options from your production environment by
 // customising the .env file in your project's root folder.
 require('dotenv').config();
+// Connect to mlab database: MONGO_URI=mongodb://admin:admin@ds133290.mlab.com:33290/webhearing
 
 // Require keystone
 var keystone = require('keystone');
@@ -11,7 +12,7 @@ var keystone = require('keystone');
 
 keystone.init({
 	'name': 'WebHearing',
-	'brand': 'WebHearing',
+	'brand': 'WebHearing',	//Displayed in the top left hand corner of the Admin UI
 
 	'less': 'public',
 	'static': 'public',
@@ -42,9 +43,15 @@ keystone.set('locals', {
 keystone.set('routes', require('./routes'));
 
 
-// Configure the navigation bar in Keystone's Admin UI
+// Configure the navigation bar in Keystone's Admin UI (relate to keystone lists by default)
 keystone.set('nav', {
 	users: 'users',
+	manage: ['patients', 'appointments', {
+		label: "Calendar",
+		key: "calendar",
+		path: "/calendar"
+	}
+	],
 });
 
 // Start Keystone to connect to your database and initialise the web server

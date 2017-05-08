@@ -14,7 +14,7 @@ var _ = require('lodash');
 	Initialises the standard view locals
 
 	The included layout depends on the navLinks array to generate
-	the navigation in the header, you may wish to change this array
+	the navigation in the (FRONTEND) header, you may wish to change this array
 	or replace it with your own templates / logic.
 */
 exports.initLocals = function (req, res, next) {
@@ -52,3 +52,39 @@ exports.requireUser = function (req, res, next) {
 		next();
 	}
 };
+
+
+/**
+	Prevents signed in users, without admin rights, from accessing pages.
+ */
+
+exports.requireAdmin = function (req, res, next) {
+	if (!req.user) {
+		req.flash('error', 'Please sign in to access this page.');
+		res.redirect('/signin');
+	} else if (!req.user.isAdmin) {
+		req.flash('error', 'User does not belong to admin group');
+		res.redirect('/');
+	}
+	else {
+		next();
+	}
+}
+
+
+/**
+	Prevents signed in users, without patient record rights, from accessing pages.
+ */
+
+exports.requirePatientAccess = function (req, res, next) {
+	if (!req.user) {
+		req.flash('error', 'Please sign in to access this page.');
+		res.redirect('/signin');
+	} else if (!req.user.seePatient) {
+		req.flash('error', 'User cannot access patient records');
+		res.redirect('/');
+	}
+	else {
+		next();
+	}
+}
