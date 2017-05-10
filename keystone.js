@@ -46,12 +46,14 @@ keystone.set('routes', require('./routes'));
 // Configure the navigation bar in Keystone's Admin UI (relate to keystone lists by default)
 keystone.set('nav', {
 	users: 'users',
-	manage: ['patients', 'appointments', {
-		label: "Calendar",
-		key: "calendar",
-		path: "/calendar"
-	}
-	],
+	patients: 'patients',
+	appointments: ['appointments',
+		{
+			label: "Calendar",
+			key: "calendar",
+			path: "/calendar"
+		}
+	]
 });
 
 // Start Keystone to connect to your database and initialise the web server

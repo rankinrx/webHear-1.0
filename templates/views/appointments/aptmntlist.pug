@@ -1,0 +1,47 @@
+extends ../../layouts/default
+
+block content
+	.container: .jumbotron
+		img(src='/images/logo.svg', width='160')
+		.container
+			.panel.panel-primary
+			.panel-heading Appointments
+			.panel-body These are list of appointments in the system.
+			table.table.table-striped
+				for appointment in data.appointments
+					tr
+						td
+							.col-md-1
+								.label.label-info.pull-right Date
+								a(href='#{appointment.url}') #{appointment.date}
+							ul.appointment-meta
+								li
+									small Appointment Date 
+									abbr.appointment-date #{appointment._.date.format('Do MMMM YYYY')}
+
+
+
+
+
+
+									
+//- 					h2 Generated Appointment ID
+//- 					p #{appointment._id}
+//- 					br
+//- 					h2 Audiologist Assigned
+//- 					p #{appointment.assignedTo}
+//- 					br
+//- 					h2 Patient Attending
+//- 					p #{appointment.assignedFor}
+//- 					br
+//- 					h2 Additional Discription
+//- 					p #{appointment.discription}
+
+//- table
+//-     thead
+//-       tr: th Posts
+//-     tbody
+//-       each post, i in userPosts
+//-         tr
+//-           td 
+//-             a(href='/admin/post/' + post.id) #{post.author} - #{post.title}

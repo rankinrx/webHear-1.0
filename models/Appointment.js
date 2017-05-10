@@ -30,6 +30,7 @@ Appointment.add({
 	description: { type: Types.Textarea },
 });
 
+// PractKjs: add a url() virtual method to the model that returns the canonical URL of the object
 Appointment.schema.virtual('url').get(function() {
  		return '/appointments/'+this.slug;
 });

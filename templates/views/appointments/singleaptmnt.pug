@@ -1,0 +1,14 @@
+extends ../../layouts/default
+
+block content
+	.container: .jumbotron
+		img(src='/images/logo.svg', width='160')
+		br
+		br
+		h3 #{data.aptmnt.assignedTo}
+		br
+		h3 #{data.aptmnt.assignedFor}
+		br
+		h3 #{data.aptmnt.date}
+		br
+		h3 #{data.aptmnt.discription}

@@ -29,17 +29,26 @@ keystone.pre('render', middleware.flashMessages);
 // Import Route Controllers
 var routes = {
 	views: importRoutes('./views'),
+	api: importRoutes('./api'),
 };
 
 // Setup Route Bindings
-/** routes.views.XXXX.XXX: This looks within the specified folder within routes/views/.../..
-*/
 exports = module.exports = function (app) {
 	// Views
 	app.get('/', routes.views.index);
 	app.get('/calendar', middleware.requireUser, routes.views.calendar);
 	app.get('/appointments', middleware.requireUser, routes.views.appointments.aptmntlist);
+	//app.get('/appointments/:aptmntslug', routes.views.appointments.singleaptmnt);
 	
+	
+
+
+	//  // Webhearign API
+    app.get('/api/calendar', keystone.middleware.api, routes.api.appointment.getAppointments);//This gets the list of tickets
+    // app.get('/api/tickets/:id', keystone.middleware.api, routes.api.ticket.getTicketById);//This gets the ticket with ID {id}
+    // app.post('/api/tickets', keystone.middleware.api, routes.api.ticket.createTicket);//This creates a new ticket
+    // app.put('/api/tickets/:id', keystone.middleware.api, routes.api.ticket.updateTicketById);//This updates the ticket with ID {id}
+    // app.delete('/api/tickets/:id', keystone.middleware.api, routes.api.ticket.deleteTicketById);//This deletes the ticket with ID {id}
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
 	// app.get('/protected', middleware.requireUser, routes.views.protected);
 

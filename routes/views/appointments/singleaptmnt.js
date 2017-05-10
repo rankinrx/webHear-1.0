@@ -7,16 +7,16 @@ exports = module.exports = function(req, res) {
 	
 	// locals.section is used to set the currently selected
 	// item in the header navigation.
-	locals.section = 'home';
+	locals.section = 'appointments';
 	
     locals.data = { 
 		aptmnt: {},
 	};
     
-    // Load all tickets
+
 	view.on('init', function(next) {
 
-    var q = keystone.list('Appointment').model.findOne({slug: req.params.aptmntslug});
+    	var q = keystone.list('Appointment').model.findOne({slug: req.params.aptmntslug});
 		 
 		q.exec(function(err, result) {
 			if(result != null)
