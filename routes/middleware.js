@@ -54,22 +54,22 @@ exports.requireUser = function (req, res, next) {
 };
 
 
-/**
-	Prevents signed in users, without admin rights, from accessing pages.
- */
+// /**
+// 	Prevents signed in users, without admin rights, from accessing pages.
+//  */
 
-exports.requireAdmin = function (req, res, next) {
-	if (!req.user) {
-		req.flash('error', 'Please sign in to access this page.');
-		res.redirect('/signin');
-	} else if (!req.user.isAdmin) {
-		req.flash('error', 'User does not belong to admin group');
-		res.redirect('/');
-	}
-	else {
-		next();
-	}
-}
+// exports.requireAdmin = function (req, res, next) {
+// 	if (!req.user) {
+// 		req.flash('error', 'Please sign in to access this page.');
+// 		res.redirect('/signin');
+// 	} else if (!req.user.isAdmin) {
+// 		req.flash('error', 'User does not belong to admin group');
+// 		res.redirect('/');
+// 	}
+// 	else {
+// 		next();
+// 	}
+// }
 
 
 /**

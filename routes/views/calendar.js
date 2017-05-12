@@ -9,7 +9,7 @@ exports = module.exports = function (req, res) {
     locals.section = 'appointments';
 
     locals.data = {
-        appointments: [],
+        appointment: [],
     };
 
     // view.on('init', function(next) {

@@ -1,27 +1,24 @@
 var keystone = require('keystone');
-
 /**
  * List Appointments
  */
-exports.getAppointments = function(req, res) {
-	 keystone.list('Appointment').model.find()
+var event = [];
+exports.getAppointments = function (req, res) {
+    // .lean is the SHIT
+    keystone.list('Appointment').model.find()
         .where('assignedTo', req.user)
         .sort('-date')
-        .exec(function(err, result) {
-            var obj = JSON.parse(jsonStr);
-            for (var i = 0; i < appointments.length; i++)
-            {
-                appointments[i].id = appointments[i]._id;
-                //appointments[i].text = appointments[i].description;
-                appointments[i].start_date = appointments[i]._.date.moment();//format('LT');
-                appointments[i].end_date = appointments[i]._.date.moment().add(1, 'h');//.format('LT');
-            }
-            //locals.data.appointments = appointments;
+        .lean()
+        .exec(function (err, event) {
 
+        for (var i = 0; i < event.length; i++) {
+            event[i].id = event[i]._id;
+            event[i].text = event[i].description;
+            event[i].start_date = event[i].date;//._.moment();//format('LT');
+            event[i].end_date = event[i].date;//.moment().add(1, 'h');//.format('LT');
+            //console.log(event[i]);
+        }
             if (err) return res.apiError('database error', err);
-            
-            res.apiResponse({
-                appointments: appointments
-            });
-    });        
+            res.apiResponse(event);
+        });
 }
