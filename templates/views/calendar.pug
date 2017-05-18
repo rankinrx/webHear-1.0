@@ -9,6 +9,9 @@ block css
 		height:100%;
 		overflow:hidden;
 		}
+		.dhx_menu_icon.icon_appointment{
+			background-image: url('/images/appointment.png');
+		}
 
 block content
 	#scheduler_here.dhx_cal_container(style='width:100%; height:100%;')
@@ -26,8 +29,19 @@ block content
 block js
 	script(type='text/javascript', charset='utf-8').
 		function init() {
+			scheduler.config.icons_select = ["icon_appointment","icon_details","icon_edit","icon_delete"];
+			scheduler.locale.labels.icon_appointment = "Appointment";
+
+			scheduler._click.buttons.appointment = function(id){
+				alert();
+				};
 			scheduler.init('scheduler_here',new Date(),'week');
 			
 			scheduler.templates.xml_date = function(value){ return new Date(value); };
 			scheduler.load('/api/calendar', 'json');
-		}
+
+			scheduler.config.xml_date="%Y-%m-%d %H:%i";
+			var dp = new dataProcessor("/api/calendar");
+			dp.init(scheduler);
+			dp.setTransactionMode("POST", false);
+			}

@@ -44,7 +44,8 @@ exports = module.exports = function (app) {
 
 
 	//  // Webhearign API
-    app.get('/api/calendar', keystone.middleware.api, routes.api.appointment.getAppointments);//This gets the list of tickets
+    app.get('/api/calendar', keystone.middleware.api, routes.api.appointment.getAppointments);//This gets the list of appointments
+	app.post('/api/calendar', keystone.middleware.api, routes.api.appointment.updateAppointments);
     // app.get('/api/tickets/:id', keystone.middleware.api, routes.api.ticket.getTicketById);//This gets the ticket with ID {id}
     // app.post('/api/tickets', keystone.middleware.api, routes.api.ticket.createTicket);//This creates a new ticket
     // app.put('/api/tickets/:id', keystone.middleware.api, routes.api.ticket.updateTicketById);//This updates the ticket with ID {id}
